@@ -1,10 +1,11 @@
 const getUser = () => {
-  const existingUser = sessionStorage.getItem('userId');
+  const existingUser = localStorage.getItem('userId');
   if (existingUser) {
     return existingUser;
   } else {
     const newUser = 'user-' + new Date().getTime();
-    sessionStorage.setItem('userId', newUser)
+    // sessionStorage.setItem('userId', newUser);
+    localStorage.setItem('userId', newUser);
     return newUser;
   }
 }
@@ -20,20 +21,22 @@ const getDatabaseCart = () => {
   const dataKey = getDataKey();
   console.log(dataKey);
   const data = localStorage.getItem(dataKey) || "{}";
-  console.log(data);
+  // console.log(data);
   console.log(JSON.parse(data));
   return JSON.parse(data);
 }
 
-const addToDatabaseCart = (key, count) => {
-  console.log(key);
+// const addToDatabaseCart = (key, count) => {
+const addToDatabaseCart = (count) => {
+  // console.log(key);
   console.log(count);
-  const currentCart = getDatabaseCart();
-  console.log(currentCart);
-  console.log(currentCart[key]);
-  console.log(currentCart[key] = count);
-  currentCart[key] = count;
-  localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
+  // const currentCart = getDatabaseCart();
+  // console.log(currentCart);
+  // console.log(currentCart[key]);
+  // console.log(currentCart[key] = count);
+  // currentCart[key] = count;
+  // localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
+  localStorage.setItem(getDataKey(), JSON.stringify(count));
 }
 
 const removeFromDatabaseCart = key => {

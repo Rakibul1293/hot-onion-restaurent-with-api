@@ -4,10 +4,19 @@ import FoodCategoryItem from '../FoodCategoryItem/FoodCategoryItem';
 import FoodDetails from '../FoodDetails/FoodDetails';
 import Login from '../Auth/Login';
 // import { Link } from 'react-router-dom';
-// import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, addToDatabaseCart } from '../../utilities/databaseManager';
 
 const FoodCategory = () => {
-    const [foodItems, setFoodItems] = useState([]);
+
+    var val = true;
+    if (val) {
+        var savedCarts = getDatabaseCart();
+        console.log(savedCarts);
+        val = false;
+    }
+    console.log(val);
+    
+    const [foodItems, setFoodItems] = useState(savedCarts);
     const breakfast = foodItems.filter(data => data.type === "breakfast");
     const lunch = foodItems.filter(data => data.type === "lunch");
     const dinner = foodItems.filter(data => data.type === "dinner");
@@ -17,6 +26,7 @@ const FoodCategory = () => {
         // fetch("https://powerful-ridge-26100.herokuapp.com/foodItems")
             .then(res => res.json())
             .then(data => {
+                addToDatabaseCart(data);
                 setFoodItems(data);
             })
     }, [])
@@ -54,7 +64,7 @@ const FoodCategory = () => {
             <div id="carouselExampleCaptions" className="carousel slide" data-interval="false" data-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-target="#carouselExampleCaptions" data-slide-to="0"><span onClick={() => selectedMenuData("breakfast", breakfast)}>Breakfast</span></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1" id="active" className="active"><span onClick={() => selectedMenuData("lunch", lunch)}>Lunch</span></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1" className="active"><span onClick={() => selectedMenuData("lunch", lunch)}>Lunch</span></li>
                     <li data-target="#carouselExampleCaptions" data-slide-to="2"><span onClick={() => selectedMenuData("dinner", dinner)}>Dinner</span></li>
                 </ol>
 
