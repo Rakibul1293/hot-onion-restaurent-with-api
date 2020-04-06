@@ -3,16 +3,18 @@ import "./FoodCategory.css";
 import FoodCategoryItem from '../FoodCategoryItem/FoodCategoryItem';
 import FoodDetails from '../FoodDetails/FoodDetails';
 import Login from '../Auth/Login';
+import fakeData from '../../fakeData';
 // import { Link } from 'react-router-dom';
 import { getDatabaseCart, addToDatabaseCart } from '../../utilities/databaseManager';
 
 const FoodCategory = () => {
-
+    const first10 = fakeData.slice(0, 19);
     var savedCarts;
     var val = true;
 
     if (val) {
-        savedCarts = getDatabaseCart();
+        // savedCarts = getDatabaseCart();
+        savedCarts = first10;
         console.log(savedCarts);
         val = false;
     }
