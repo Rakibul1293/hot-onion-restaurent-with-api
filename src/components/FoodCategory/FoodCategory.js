@@ -3,19 +3,31 @@ import "./FoodCategory.css";
 import FoodCategoryItem from '../FoodCategoryItem/FoodCategoryItem';
 import FoodDetails from '../FoodDetails/FoodDetails';
 import Login from '../Auth/Login';
-import fakeData from '../../fakeData';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 
 const FoodCategory = () => {
-    const data = fakeData.slice(0, 19);
-    const breakfast = data.filter(data => data.type === "breakfast");
-    const lunch = data.filter(data => data.type === "lunch");
-    const dinner = data.filter(data => data.type === "dinner");
+    const [foodItems, setFoodItems] = useState([]);
+    const breakfast = foodItems.filter(data => data.type === "breakfast");
+    const lunch = foodItems.filter(data => data.type === "lunch");
+    const dinner = foodItems.filter(data => data.type === "dinner");
+    
+    useEffect(() => {
+        fetch("http://localhost:4200/foodItems")
+        // fetch("https://powerful-ridge-26100.herokuapp.com/foodItems")
+            .then(res => res.json())
+            .then(data => {
+                setFoodItems(data);
+            })
+    }, [])
+
+    console.log(foodItems);
+    console.log(breakfast);
+    console.log(lunch);
+    console.log(dinner);
 
     const [foodData, setFoodData] = useState(lunch);
     const [foodDetail, setFoodDetail] = useState(lunch);
-
     const selectedMenuData = (menu, item) => {
         let newFoodData = [];
         if (menu === "breakfast" || menu === "lunch" || menu === "dinner") {
@@ -42,11 +54,12 @@ const FoodCategory = () => {
             <div id="carouselExampleCaptions" className="carousel slide" data-interval="false" data-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-target="#carouselExampleCaptions" data-slide-to="0"><span onClick={() => selectedMenuData("breakfast", breakfast)}>Breakfast</span></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1" className="active"><span onClick={() => selectedMenuData("lunch", lunch)}>Lunch</span></li>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="1" id="active" className="active"><span onClick={() => selectedMenuData("lunch", lunch)}>Lunch</span></li>
                     <li data-target="#carouselExampleCaptions" data-slide-to="2"><span onClick={() => selectedMenuData("dinner", dinner)}>Dinner</span></li>
                 </ol>
 
                 {
+                    foodItems ?
                     eventType === "FoodCategoryItem" || eventType === "FoodDetails" || eventType === "addCart" ?
                         <div className="carousel-inner text-center">
                             <div className="carousel-item text-center">
@@ -269,6 +282,9 @@ const FoodCategory = () => {
                             </div>
                         </div> :
                         <Login></Login>
+                        : <p>Data Loading</p>
+                    }
+                }
                 }
             </div>
         </div >
