@@ -8,28 +8,34 @@ import { getDatabaseCart, addToDatabaseCart } from '../../utilities/databaseMana
 
 const FoodCategory = () => {
 
+    
+    var savedCarts;
     var val = true;
+    
     if (val) {
-        var savedCarts = getDatabaseCart();
+        savedCarts = getDatabaseCart();
         console.log(savedCarts);
         val = false;
     }
-    console.log(val);
-    
-    const [foodItems, setFoodItems] = useState(savedCarts);
-    const breakfast = foodItems.filter(data => data.type === "breakfast");
-    const lunch = foodItems.filter(data => data.type === "lunch");
-    const dinner = foodItems.filter(data => data.type === "dinner");
+
+    if (!savedCarts) {
+        savedCarts = [];
+    }
     
     useEffect(() => {
-        fetch("http://localhost:4200/foodItems")
-        // fetch("https://powerful-ridge-26100.herokuapp.com/foodItems")
+        // fetch("http://localhost:4200/foodItems")
+        fetch("https://powerful-ridge-26100.herokuapp.com/foodItems")
             .then(res => res.json())
             .then(data => {
                 addToDatabaseCart(data);
                 setFoodItems(data);
             })
     }, [])
+
+    const [foodItems, setFoodItems] = useState(savedCarts);
+    const breakfast = foodItems.filter(data => data.type === "breakfast");
+    const lunch = foodItems.filter(data => data.type === "lunch");
+    const dinner = foodItems.filter(data => data.type === "dinner");
 
     console.log(foodItems);
     console.log(breakfast);
