@@ -8,10 +8,9 @@ import { getDatabaseCart, addToDatabaseCart } from '../../utilities/databaseMana
 
 const FoodCategory = () => {
 
-    
     var savedCarts;
-    var val = true;
-    
+    var val;
+
     if (val) {
         savedCarts = getDatabaseCart();
         console.log(savedCarts);
@@ -20,8 +19,9 @@ const FoodCategory = () => {
 
     if (!savedCarts) {
         savedCarts = [];
+        val = true;
     }
-    
+
     useEffect(() => {
         // fetch("http://localhost:4200/foodItems")
         fetch("https://powerful-ridge-26100.herokuapp.com/foodItems")
