@@ -9,7 +9,7 @@ import { getDatabaseCart, addToDatabaseCart } from '../../utilities/databaseMana
 const FoodCategory = () => {
 
     var savedCarts;
-    var val;
+    var val = true;
 
     if (val) {
         savedCarts = getDatabaseCart();
