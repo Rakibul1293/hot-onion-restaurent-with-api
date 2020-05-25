@@ -11,14 +11,17 @@ function App(props) {
   return (
     <div>
       <AuthContextProvider>
-        <Header></Header>
-        <BannerTop></BannerTop>
-        <FoodCategory></FoodCategory>
+
 
         <Router>
           <Switch>
+            <Route exact path="/">
+              <Header></Header>
+              <BannerTop></BannerTop>
+              <FoodCategory></FoodCategory>
+            </Route>
             <Route path="/login">
-              {/* <Login></Login> */}
+              <Login></Login>
             </Route>
           </Switch>
         </Router>

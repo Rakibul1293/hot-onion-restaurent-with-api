@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./FoodDetails.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -28,9 +28,36 @@ import { faShoppingCart, faPlus, faMinus } from '@fortawesome/free-solid-svg-ico
 const FoodDetails = (props) => {
     const { key, title, description, price, img } = props.foodDetail;
     const [count, setCount] = useState(1);
+
     if (count == 0) {
         setCount(1);
     }
+
+    // const prev = useRef();
+    // const tempValue = count;
+    // prev.current = tempValue;
+    // const previous = prev.current;
+    // console.log(previous);
+
+    // useEffect(() => {
+    //     prev.current = count;
+    //     const previous = prev.current;
+    //     if (count == 1) {
+    //         setCount(count);
+    //     } else if (count > 1) {
+    //         setCount(previous);
+    //     }
+    // }, [count]);
+
+    // const prev = useRef();
+    // const handle = (e) => {
+    //     props.handleFoodItemRoute(e, "addCart", key);
+    //     const tempValue = count;
+    //     prev.current = tempValue;
+    //     const previous = prev.current;
+    //     console.log(previous);
+    //     setCount(previous);
+    // }
 
     return (
         <div className="d-flex justify-content-between">
